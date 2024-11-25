@@ -37,7 +37,7 @@ router.route('/listLoans').get((req, res) => {
         if(!err){
             res.send(result);
         }else{
-            console.log(err);
+            res.send(err);
         }
     });
 });
@@ -47,7 +47,27 @@ router.route('/insertLoan').post((req, res) => {
         if(!err){
             res.json(result);
         }else{
-            console.log(err);
+            res.send(err);
+        }
+    }); 
+});
+
+router.route('/updateLoan/:id').put((req, res) => {
+    conexion.query(`UPDATE prestamos SET ? WHERE id = ${req.params.id}`, req.body, (err, result, fields) => {
+        if(!err){
+            res.json(result);
+        }else{
+            res.send(err);
+        }
+    }); 
+});
+
+router.route('/deleteLoan/:id').delete((req, res) => {
+    conexion.query(`DELETE FROM prestamos WHERE id = ${req.params.id}`, (err, result, fields) => {
+        if(!err){
+            res.json(result);
+        }else{
+            res.send(err);
         }
     }); 
 });
